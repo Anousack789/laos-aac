@@ -71,7 +71,9 @@ laos-aac/
 │       └── README.md       # Data usage documentation
 ├── public/
 │   └── audio/              # Generated audio files
-├── generate_voices.py      # Python script for audio generation
+├── scripts/
+│   ├── generate_audio.py   # Single word audio generation script
+│   └── generate_voices.py  # Batch audio generation for all symbols
 └── package.json
 ```
 
@@ -99,7 +101,7 @@ source .venv/bin/activate
 
 2. Run the audio generation script:
 ```bash
-python generate_voices.py
+python scripts/generate_voices.py
 ```
 
 This will:
@@ -135,7 +137,7 @@ The project uses a **single source of truth** approach for symbols:
 
 3. Generate the audio:
 ```bash
-python generate_voices.py
+python scripts/generate_voices.py
 ```
 
 No need to update multiple files!
