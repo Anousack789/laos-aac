@@ -9,7 +9,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 WORKDIR /app
 
 # Copy Prisma schema and package files
-COPY prisma ./prisma
+# COPY prisma ./prisma
 COPY package.json pnpm-lock.yaml ./
 
 # Install Python dependencies
@@ -20,7 +20,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pnpm install --frozen-lockfile --ignore-scripts
 
 # Generate Prisma client
-RUN pnpm prisma generate
+# RUN pnpm prisma generate
 
 # ------------------------------------------------------
 # Stage 2: Builder
@@ -34,7 +34,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 
 # Copy generated Prisma client from deps
-COPY --from=deps /app/src/generated/prisma ./src/generated/prisma
+# COPY --from=deps /app/src/generated/prisma ./src/generated/prisma
 
 # Copy rest of the application
 COPY . .
