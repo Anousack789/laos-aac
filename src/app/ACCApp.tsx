@@ -1,154 +1,28 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
 import {
-  Volume2,
-  Trash2,
-  Home,
   Heart,
-  Utensils,
-  Zap,
-  MessageCircle,
-  Settings,
-  Grid,
-  List,
-  Search,
-  X,
-  ChevronLeft,
-  Plus,
-  Edit3,
-  Play,
-  Pause,
-  Type,
-  Image as ImageIcon,
-  User,
-  Moon,
-  Sun,
+  Home,
   Maximize2,
-  LucideIcon,
+  MessageCircle,
+  Moon,
+  Play,
+  Plus,
+  Search,
+  Settings,
+  Sun,
+  Trash2,
+  Type,
+  Volume2,
+  X,
 } from "lucide-react";
-
-// Type Definitions
-interface Symbol {
-  id: string;
-  text: string;
-  img: string;
-  color: string;
-  isCustom?: boolean;
-}
-
-interface Category {
-  id: string;
-  name: string;
-  icon: LucideIcon;
-  color: string;
-  symbols: Symbol[];
-}
+import React, { useState } from "react";
+import { Symbol, symbolCategories } from "../data/symbols";
 
 type GridSize = 2 | 3 | 4;
 
 interface SentenceItem extends Symbol {
   uniqueId?: string; // For tracking position in sentence
 }
-
-// Sample AAC Symbol Data (Localized to Lao)
-const symbolCategories: Category[] = [
-  {
-    id: "quick",
-    name: "ຄຳສັບດ່ວນ", // Quick Phrases
-    icon: Zap,
-    color: "from-amber-400 to-orange-500",
-    symbols: [
-      { id: "q1", text: "ແມ່ນ", img: "👍", color: "bg-green-100" }, // Yes
-      { id: "q2", text: "ບໍ່", img: "👎", color: "bg-red-100" }, // No
-      { id: "q3", text: "ອາດຈະ", img: "🤷", color: "bg-yellow-100" }, // Maybe
-      { id: "q4", text: "ກະລຸນາ", img: "🙏", color: "bg-blue-100" }, // Please
-      { id: "q5", text: "ຂອບໃຈ", img: "💐", color: "bg-pink-100" }, // Thank You
-      { id: "q6", text: "ຊ່ວຍແດ່", img: "🆘", color: "bg-red-100" }, // Help
-      { id: "q7", text: "ຢຸດ", img: "✋", color: "bg-red-200" }, // Stop
-      { id: "q8", text: "ໄປ", img: "✅", color: "bg-green-200" }, // Go
-    ],
-  },
-  {
-    id: "needs",
-    name: "ຄວາມຕ້ອງການ", // Needs
-    icon: Heart,
-    color: "from-rose-400 to-pink-600",
-    symbols: [
-      { id: "n1", text: "ນ້ຳ", img: "💧", color: "bg-blue-100" }, // Water
-      { id: "n2", text: "ອາຫານ", img: "🍎", color: "bg-red-100" }, // Food
-      { id: "n3", text: "ຫ້ອງນ້ຳ", img: "🚻", color: "bg-blue-200" }, // Bathroom
-      { id: "n4", text: "ງ່ວງນອນ", img: "😴", color: "bg-indigo-100" }, // Sleepy
-      { id: "n5", text: "ເຈັບ", img: "🤕", color: "bg-red-200" }, // Pain
-      { id: "n6", text: "ໜາວ", img: "❄️", color: "bg-cyan-100" }, // Cold
-      { id: "n7", text: "ຮ້ອນ", img: "🔥", color: "bg-orange-100" }, // Hot
-      { id: "n8", text: "ເມື່ອຍ", img: "😫", color: "bg-gray-100" }, // Tired
-    ],
-  },
-  {
-    id: "food",
-    name: "ອາຫານ ແລະ ເຄື່ອງດື່ມ", // Food & Drink
-    icon: Utensils,
-    color: "from-green-400 to-emerald-600",
-    symbols: [
-      { id: "f1", text: "ໝາກແອັບເປິ້ນ", img: "🍎", color: "bg-red-100" }, // Apple
-      { id: "f2", text: "ໝາກກ້ວຍ", img: "🍌", color: "bg-yellow-100" }, // Banana
-      { id: "f3", text: "ນົມ", img: "🥛", color: "bg-blue-50" }, // Milk
-      { id: "f4", text: "ນ້ຳໝາກໄມ້", img: "🧃", color: "bg-orange-100" }, // Juice
-      { id: "f5", text: "ພິດຊ່າ", img: "🍕", color: "bg-orange-200" }, // Pizza
-      { id: "f6", text: "ແຊນວິດ", img: "🥪", color: "bg-yellow-200" }, // Sandwich
-      { id: "f7", text: "ຄຸກກີ້", img: "🍪", color: "bg-amber-100" }, // Cookie
-      { id: "f8", text: "ກະແລັມ", img: "🍦", color: "bg-pink-100" }, // Ice Cream
-    ],
-  },
-  {
-    id: "feelings",
-    name: "ຄວາມຮູ້ສຶກ", // Feelings
-    icon: MessageCircle,
-    color: "from-purple-400 to-violet-600",
-    symbols: [
-      { id: "fe1", text: "ດີໃຈ", img: "😊", color: "bg-yellow-100" }, // Happy
-      { id: "fe2", text: "ເສຍໃຈ", img: "😢", color: "bg-blue-200" }, // Sad
-      { id: "fe3", text: "ໃຈຮ້າຍ", img: "😠", color: "bg-red-200" }, // Angry
-      { id: "fe4", text: "ຢ້ານ", img: "😨", color: "bg-purple-200" }, // Scared
-      { id: "fe5", text: "ຕື່ນເຕັ້ນ", img: "🤩", color: "bg-pink-200" }, // Excited
-      { id: "fe6", text: "ບໍ່ສະບາຍ", img: "🤢", color: "bg-green-200" }, // Sick
-      { id: "fe7", text: "ຮັກ", img: "❤️", color: "bg-red-100" }, // Love
-      { id: "fe8", text: "ສັບສົນ", img: "😕", color: "bg-gray-200" }, // Confused
-    ],
-  },
-  {
-    id: "activities",
-    name: "ກິດຈະກຳ", // Activities
-    icon: Grid,
-    color: "from-blue-400 to-cyan-600",
-    symbols: [
-      { id: "a1", text: "ຫຼິ້ນ", img: "🎮", color: "bg-purple-100" }, // Play
-      { id: "a2", text: "ອ່ານ", img: "📚", color: "bg-blue-100" }, // Read
-      { id: "a3", text: "ໂທລະທັດ", img: "📺", color: "bg-blue-200" }, // TV
-      { id: "a4", text: "ຍ່າງ", img: "🚶", color: "bg-green-100" }, // Walk
-      { id: "a5", text: "ຟັງເພງ", img: "🎵", color: "bg-pink-100" }, // Music
-      { id: "a6", text: "ແຕ້ມຮູບ", img: "🎨", color: "bg-orange-100" }, // Draw
-      { id: "a7", text: "ລອຍນ້ຳ", img: "🏊", color: "bg-cyan-100" }, // Swim
-      { id: "a8", text: "ສວນສາທາລະນະ", img: "🌳", color: "bg-green-200" }, // Park
-    ],
-  },
-  {
-    id: "people",
-    name: "ບຸກຄົນ", // People
-    icon: User,
-    color: "from-indigo-400 to-blue-600",
-    symbols: [
-      { id: "p1", text: "ແມ່", img: "👩", color: "bg-pink-100" }, // Mom
-      { id: "p2", text: "ພໍ່", img: "👨", color: "bg-blue-100" }, // Dad
-      { id: "p3", text: "ທ່ານໝໍ", img: "👨‍⚕️", color: "bg-white" }, // Doctor
-      { id: "p4", text: "ຄູອາຈານ", img: "👩‍🏫", color: "bg-yellow-100" }, // Teacher
-      { id: "p5", text: "ໝູ່", img: "👫", color: "bg-green-100" }, // Friend
-      { id: "p6", text: "ເດັກນ້ອຍ", img: "👶", color: "bg-yellow-50" }, // Baby
-      { id: "p7", text: "ຄອບຄົວ", img: "👨‍👩‍👧‍👦", color: "bg-orange-100" }, // Family
-      { id: "p8", text: "ຕຳຫຼວດ", img: "👮", color: "bg-blue-200" }, // Police
-    ],
-  },
-];
 
 const AACApp: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("quick");
@@ -163,15 +37,56 @@ const AACApp: React.FC = () => {
   const [showTextInput, setShowTextInput] = useState<boolean>(false);
   const [customText, setCustomText] = useState<string>("");
   const [highContrast, setHighContrast] = useState<boolean>(false);
+  const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(
+    null,
+  );
 
-  useEffect(() => {
-    const supportedVoices = window.speechSynthesis.getVoices();
-    console.log("Supported Voices:");
-    console.log(supportedVoices);
-  }, []);
+  // Get audio file path for a symbol
+  const getAudioPath = (symbolId: string): string => {
+    return `/audio/${symbolId}.mp3`;
+  };
 
-  // Text-to-speech function
-  const speak = (text: string): void => {
+  // Text-to-speech function using audio assets
+  const speak = (text: string, symbolId?: string): void => {
+    // Stop any currently playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    // If we have a symbol ID, play the corresponding audio file
+    if (symbolId) {
+      const audioPath = getAudioPath(symbolId);
+      const audio = new Audio(audioPath);
+      setCurrentAudio(audio);
+
+      audio.onplay = () => setIsSpeaking(true);
+      audio.onended = () => {
+        setIsSpeaking(false);
+        setCurrentAudio(null);
+      };
+      audio.onerror = () => {
+        console.error(`Failed to play audio: ${audioPath}`);
+        setIsSpeaking(false);
+        setCurrentAudio(null);
+        // Fallback to speechSynthesis if audio file fails
+        fallbackSpeak(text);
+      };
+
+      audio.play().catch((err) => {
+        console.error("Audio playback error:", err);
+        setIsSpeaking(false);
+        setCurrentAudio(null);
+        fallbackSpeak(text);
+      });
+    } else {
+      // For custom text without symbol ID, use speechSynthesis fallback
+      fallbackSpeak(text);
+    }
+  };
+
+  // Fallback to speechSynthesis for custom text or when audio fails
+  const fallbackSpeak = (text: string): void => {
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
 
@@ -202,7 +117,7 @@ const AACApp: React.FC = () => {
       return [symbol, ...filtered].slice(0, 8);
     });
 
-    speak(symbol.text);
+    speak(symbol.text, symbol.id);
   };
 
   const removeFromSentence = (index: number): void => {
@@ -212,13 +127,51 @@ const AACApp: React.FC = () => {
 
   const clearSentence = (): void => {
     setSentence([]);
-    window.speechSynthesis.cancel();
+    // Stop any playing audio
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      setCurrentAudio(null);
+    }
+    setIsSpeaking(false);
   };
 
   const speakSentence = (): void => {
     if (sentence.length > 0) {
-      const fullText = sentence.map((s) => s.text).join(" ");
-      speak(fullText);
+      // Play audio files sequentially for each symbol in the sentence
+      let currentIndex = 0;
+
+      const playNext = () => {
+        if (currentIndex >= sentence.length) {
+          setIsSpeaking(false);
+          return;
+        }
+
+        const symbol = sentence[currentIndex];
+        const audioPath = getAudioPath(symbol.id);
+        const audio = new Audio(audioPath);
+        setCurrentAudio(audio);
+
+        audio.onended = () => {
+          currentIndex++;
+          playNext();
+        };
+
+        audio.onerror = () => {
+          console.error(`Failed to play audio: ${audioPath}`);
+          currentIndex++;
+          playNext();
+        };
+
+        audio.play().catch((err) => {
+          console.error("Audio playback error:", err);
+          currentIndex++;
+          playNext();
+        });
+      };
+
+      setIsSpeaking(true);
+      playNext();
     }
   };
 
@@ -328,7 +281,7 @@ const AACApp: React.FC = () => {
 
           {/* Sentence Display */}
           <div
-            className={`rounded-2xl p-4 min-h-[100px] transition-colors relative ${
+            className={`rounded-2xl p-4 min-h-25 transition-colors relative ${
               darkMode
                 ? "bg-gray-800 border-2 border-gray-700"
                 : "bg-white border-2 border-blue-100 shadow-inner"
@@ -579,7 +532,7 @@ const AACApp: React.FC = () => {
                   <button
                     key={`recent-${symbol.id}-${idx}`}
                     onClick={() => addToSentence(symbol)}
-                    className={`flex-shrink-0 w-20 h-20 rounded-xl flex flex-col items-center justify-center gap-1 transition-all hover:scale-110 shadow-sm ${
+                    className={`shrink-0 w-20 h-20 rounded-xl flex flex-col items-center justify-center gap-1 transition-all hover:scale-110 shadow-sm ${
                       darkMode
                         ? "bg-gray-800 border border-gray-700"
                         : "bg-white border border-gray-200"

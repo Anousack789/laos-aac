@@ -1,0 +1,106 @@
+{
+  "categories": [
+    {
+      "id": "quick",
+      "name": "ຄຳສັບດ່ວນ",
+      "nameEn": "Quick Phrases",
+      "icon": "Zap",
+      "color": "from-amber-400 to-orange-500",
+      "symbols": [
+        { "id": "q1", "text": "ແມ່ນ", "img": "👍", "color": "bg-green-100" },
+        { "id": "q2", "text": "ບໍ່", "img": "👎", "color": "bg-red-100" },
+        { "id": "q3", "text": "ອາດຈະ", "img": "🤷", "color": "bg-yellow-100" },
+        { "id": "q4", "text": "ກະລຸນາ", "img": "🙏", "color": "bg-blue-100" },
+        { "id": "q5", "text": "ຂອບໃຈ", "img": "💐", "color": "bg-pink-100" },
+        { "id": "q6", "text": "ຊ່ວຍແດ່", "img": "🆘", "color": "bg-red-100" },
+        { "id": "q7", "text": "ຢຸດ", "img": "✋", "color": "bg-red-200" },
+        { "id": "q8", "text": "ໄປ", "img": "✅", "color": "bg-green-200" }
+      ]
+    },
+    {
+      "id": "needs",
+      "name": "ຄວາມຕ້ອງການ",
+      "nameEn": "Needs",
+      "icon": "Heart",
+      "color": "from-rose-400 to-pink-600",
+      "symbols": [
+        { "id": "n1", "text": "ນ້ຳ", "img": "💧", "color": "bg-blue-100" },
+        { "id": "n2", "text": "ອາຫານ", "img": "🍎", "color": "bg-red-100" },
+        { "id": "n3", "text": "ຫ້ອງນ້ຳ", "img": "🚻", "color": "bg-blue-200" },
+        { "id": "n4", "text": "ງ່ວງນອນ", "img": "😴", "color": "bg-indigo-100" },
+        { "id": "n5", "text": "ເຈັບ", "img": "🤕", "color": "bg-red-200" },
+        { "id": "n6", "text": "ໜາວ", "img": "❄️", "color": "bg-cyan-100" },
+        { "id": "n7", "text": "ຮ້ອນ", "img": "🔥", "color": "bg-orange-100" },
+        { "id": "n8", "text": "ເມື່ອຍ", "img": "😫", "color": "bg-gray-100" }
+      ]
+    },
+    {
+      "id": "food",
+      "name": "ອາຫານ ແລະ ເຄື່ອງດື່ມ",
+      "nameEn": "Food & Drink",
+      "icon": "Utensils",
+      "color": "from-green-400 to-emerald-600",
+      "symbols": [
+        { "id": "f1", "text": "ໝາກແອັບເປິ້ນ", "img": "🍎", "color": "bg-red-100" },
+        { "id": "f2", "text": "ໝາກກ້ວຍ", "img": "🍌", "color": "bg-yellow-100" },
+        { "id": "f3", "text": "ນົມ", "img": "🥛", "color": "bg-blue-50" },
+        { "id": "f4", "text": "ນ້ຳໝາກໄມ້", "img": "🧃", "color": "bg-orange-100" },
+        { "id": "f5", "text": "ພິດຊ່າ", "img": "🍕", "color": "bg-orange-200" },
+        { "id": "f6", "text": "ແຊນວິດ", "img": "🥪", "color": "bg-yellow-200" },
+        { "id": "f7", "text": "ຄຸກກີ້", "img": "🍪", "color": "bg-amber-100" },
+        { "id": "f8", "text": "ກະແລັມ", "img": "🍦", "color": "bg-pink-100" }
+      ]
+    },
+    {
+      "id": "feelings",
+      "name": "ຄວາມຮູ້ສຶກ",
+      "nameEn": "Feelings",
+      "icon": "MessageCircle",
+      "color": "from-purple-400 to-violet-600",
+      "symbols": [
+        { "id": "fe1", "text": "ດີໃຈ", "img": "😊", "color": "bg-yellow-100" },
+        { "id": "fe2", "text": "ເສຍໃຈ", "img": "😢", "color": "bg-blue-200" },
+        { "id": "fe3", "text": "ໃຈຮ້າຍ", "img": "😠", "color": "bg-red-200" },
+        { "id": "fe4", "text": "ຢ້ານ", "img": "😨", "color": "bg-purple-200" },
+        { "id": "fe5", "text": "ຕື່ນເຕັ້ນ", "img": "🤩", "color": "bg-pink-200" },
+        { "id": "fe6", "text": "ບໍ່ສະບາຍ", "img": "🤢", "color": "bg-green-200" },
+        { "id": "fe7", "text": "ຮັກ", "img": "❤️", "color": "bg-red-100" },
+        { "id": "fe8", "text": "ສັບສົນ", "img": "😕", "color": "bg-gray-200" }
+      ]
+    },
+    {
+      "id": "activities",
+      "name": "ກິດຈະກຳ",
+      "nameEn": "Activities",
+      "icon": "Grid",
+      "color": "from-blue-400 to-cyan-600",
+      "symbols": [
+        { "id": "a1", "text": "ຫຼິ້ນ", "img": "🎮", "color": "bg-purple-100" },
+        { "id": "a2", "text": "ອ່ານ", "img": "📚", "color": "bg-blue-100" },
+        { "id": "a3", "text": "ໂທລະທັດ", "img": "📺", "color": "bg-blue-200" },
+        { "id": "a4", "text": "ຍ່າງ", "img": "🚶", "color": "bg-green-100" },
+        { "id": "a5", "text": "ຟັງເພງ", "img": "🎵", "color": "bg-pink-100" },
+        { "id": "a6", "text": "ແຕ້ມຮູບ", "img": "🎨", "color": "bg-orange-100" },
+        { "id": "a7", "text": "ລອຍນ້ຳ", "img": "🏊", "color": "bg-cyan-100" },
+        { "id": "a8", "text": "ສວນສາທາລະນະ", "img": "🌳", "color": "bg-green-200" }
+      ]
+    },
+    {
+      "id": "people",
+      "name": "ບຸກຄົນ",
+      "nameEn": "People",
+      "icon": "User",
+      "color": "from-indigo-400 to-blue-600",
+      "symbols": [
+        { "id": "p1", "text": "ແມ່", "img": "👩", "color": "bg-pink-100" },
+        { "id": "p2", "text": "ພໍ່", "img": "👨", "color": "bg-blue-100" },
+        { "id": "p3", "text": "ທ່ານໝໍ", "img": "👨‍⚕️", "color": "bg-white" },
+        { "id": "p4", "text": "ຄູອາຈານ", "img": "👩‍🏫", "color": "bg-yellow-100" },
+        { "id": "p5", "text": "ໝູ່", "img": "👫", "color": "bg-green-100" },
+        { "id": "p6", "text": "ເດັກນ້ອຍ", "img": "👶", "color": "bg-yellow-50" },
+        { "id": "p7", "text": "ຄອບຄົວ", "img": "👨‍👩‍👧‍👦", "color": "bg-orange-100" },
+        { "id": "p8", "text": "ຕຳຫຼວດ", "img": "👮", "color": "bg-blue-200" }
+      ]
+    }
+  ]
+}
