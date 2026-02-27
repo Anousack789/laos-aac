@@ -3,6 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --aac-symbol-text:    0.875rem; /* text-sm */
+  --aac-symbol-emoji:   2.25rem;  /* text-4xl */
+  --aac-sentence-text:  1rem;     /* text-base */
+  --aac-ui:             0.875rem; /* text-sm */
+  --aac-recent-label:   0.75rem;  /* text-xs */
 }
 
 @theme inline {
@@ -24,3 +29,26 @@ body {
   color: var(--foreground);
   font-family: var(--font-noto-sans-lao), sans-serif;
 }
+
+[data-font-size="large"] {
+  --aac-symbol-text:    1rem;     /* text-base */
+  --aac-symbol-emoji:   3rem;     /* text-5xl */
+  --aac-sentence-text:  1.125rem; /* text-lg */
+  --aac-ui:             1rem;     /* text-base */
+  --aac-recent-label:   0.875rem; /* text-sm */
+}
+
+[data-font-size="elder"] {
+  --aac-symbol-text:    1.25rem;  /* text-xl */
+  --aac-symbol-emoji:   3.75rem;  /* text-6xl */
+  --aac-sentence-text:  1.5rem;   /* text-2xl */
+  --aac-ui:             1.125rem; /* text-lg */
+  --aac-recent-label:   1rem;     /* text-base */
+}
+
+/* Utility classes that consume the CSS variables */
+.aac-symbol-text    { font-size: var(--aac-symbol-text); }
+.aac-symbol-emoji   { font-size: var(--aac-symbol-emoji); }
+.aac-sentence-text  { font-size: var(--aac-sentence-text); }
+.aac-ui             { font-size: var(--aac-ui); }
+.aac-recent-label   { font-size: var(--aac-recent-label); }
